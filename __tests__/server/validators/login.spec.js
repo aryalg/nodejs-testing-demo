@@ -5,6 +5,20 @@
 import loginValidators from '@validators/login'
 
 
+class Response {
+    status(status) {
+        this.status = status
+
+        return this
+    }
+
+
+    json(data) {
+        return data;
+    }
+}
+
+
 describe('The login Validators', () => {
     it('Should call the next function when validation succeds', async () => {
         const req = {
@@ -26,5 +40,37 @@ describe('The login Validators', () => {
 
 
         expect(next).toHaveBeenCalled();
+    })
+
+
+    it('should return a 422 if validation fails', async () => {
+        const req = {
+            body: {
+                password: 'kathmandu'
+            }
+        }
+
+        const next = jest.fn()
+
+        const res = new Response()
+
+        const statusSpy = jest.spyOn(res, 'status')
+
+        const jsonSpy = jest.spyOn(res, 'json')
+
+
+        await loginValidators(req, res, next)
+
+        expect(statusSpy).toHaveBeenCalledWith(422)
+
+        expect(jsonSpy).toHaveBeenCalledWith({
+            message: 'Validation failed.',
+            data: {
+                errors: {
+                    'email': 'email is a required field'
+                }
+            }
+        })
+
     })
 })
