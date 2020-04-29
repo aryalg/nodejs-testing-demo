@@ -84,3 +84,7 @@ afterAll(async () => {
 ```js
 expect(createdUser.emailConfirmCode).toEqual(expect.any(String));
 ```
+
+## Testing Instance Methods
+
+We can refactor our existing code with creating user code inside beforeEach hook.
