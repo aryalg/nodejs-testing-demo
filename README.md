@@ -88,3 +88,19 @@ expect(createdUser.emailConfirmCode).toEqual(expect.any(String));
 ## Testing Instance Methods
 
 We can refactor our existing code with creating user code inside beforeEach hook.
+
+## Integration Test
+
+Integration test basically test out API exactly as any human would manually test it for example, making an API request to an endpoint and expecting a specific result or response.
+
+We need to add new package
+
+`npm i --save-dev supertest`
+
+The package.json starts the app in dev mode from server/index.js
+And index.js listens to a specific port for the application
+
+But we are testing, we do not want to listen because there's no point one in the application
+We can simply call the Express application and communicate with the endpoints.
+
+This is very important if you want to test your applications make sure you separate the app from the listener so that you can test the app seperately
