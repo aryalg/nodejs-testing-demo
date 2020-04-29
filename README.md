@@ -104,3 +104,8 @@ But we are testing, we do not want to listen because there's no point one in the
 We can simply call the Express application and communicate with the endpoints.
 
 This is very important if you want to test your applications make sure you separate the app from the listener so that you can test the app seperately
+
+## End to End Testing with Cypress
+
+=> Unlike unit testing and integration testing the end to end tests are literally the test that verify the behaviour of the application as the user uses it. It's going to launch a real browser perform actions on one assertions. First we need to install cyprus.
+`npm i --save-dev cypress`
