@@ -4,7 +4,7 @@
 
 import User from '@models/User';
 
-import mongoose from 'mongoose';
+import { connect, disconnect } from '@tests/utils/mongoose'
 
 import Bcrypt from 'bcryptjs';
 
@@ -24,7 +24,7 @@ describe('The User Model', () => {
     let createdUser;
     beforeAll(async () => {
 
-        await mongoose.connect('mongodb+srv://bikramaryal:bhadrakali@321@tigercafe-fdk21.mongodb.net/nodetest?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+        await connect()
         createdUser = await User.create(user);
     })
     it('should hash the user password before saving to database', async () => {
@@ -53,7 +53,7 @@ describe('The User Model', () => {
 
 
     afterAll(async () => {
-        await mongoose.connection.close();
+        await disconnect()
 
     })
 });

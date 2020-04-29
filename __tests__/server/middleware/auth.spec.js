@@ -4,7 +4,7 @@
 
 import User from '@models/User';
 
-import mongoose from 'mongoose';
+import { connect, disconnect } from '@tests/utils/mongoose'
 
 import jwt from 'jsonwebtoken';
 
@@ -12,19 +12,7 @@ import config from '@config';
 
 import authMiddleware from '@middleware/auth'
 
-
-class Response {
-    status(status) {
-        this.status = status
-
-        return this
-    }
-
-
-    json(data) {
-        return data;
-    }
-}
+import Response from '@tests/utils/response'
 
 
 
@@ -40,7 +28,7 @@ describe('The Auth Middleware', () => {
 
     beforeAll(async () => {
 
-        await mongoose.connect('mongodb+srv://bikramaryal:bhadrakali@321@tigercafe-fdk21.mongodb.net/nodetest?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+        await connect()
         createdUser = await User.create(user);
     })
 
@@ -99,7 +87,7 @@ describe('The Auth Middleware', () => {
 
 
     afterAll(async () => {
-        await mongoose.connection.close();
+        await disconnect()
 
     })
 });
