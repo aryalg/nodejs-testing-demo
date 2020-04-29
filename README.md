@@ -57,3 +57,30 @@ Now lets run our test again and see how much time it will take. (Only too about 
 We stil have timeout error, because jest is not able to close database connection.
 
 Finally we have successful test! Great Job.
+
+## Setup and Teardown
+
+If we checkout our `user.spec.js`, inside out test we're establishing database connection and then we're performing our test And finally we are closing our database connection.
+
+This not ideal because if we go ahead and have another test, we would required all steps that we setup in this one. This is lots of duplication. With jest, we can use testhooks
+
+`beforeEach()` - Before every tests
+`beforeAll()` - function going to be run before all tests
+Postition of these hooks are also important.
+
+```js
+beforeAll(async () => {
+  await mongoose.connect(
+    "mongodb+srv://bikramaryal:<password>@tigercafe-fdk21.mongodb.net/nodetest?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  );
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+```
+
+```js
+expect(createdUser.emailConfirmCode).toEqual(expect.any(String));
+```
